@@ -17,8 +17,8 @@
         <preference name="ANDROID_MAIN_BUTTON_STYLE" />
         <preference name="ALLOW_CREDENTIALS_SAVING" />
         <preference name="HIDE_WEB_ADDRESS" />
-        <preference name="AUTOMATON_TIMEOUT" />
-        <preference name="SKIP_EXIT_PAGE" />
+        <preference name="ANDROID_AUTOMATON_TIMEOUT" />
+        <preference name="ANDROID_SKIP_EXIT_PAGE" />
 
 
         <framework src="src/android/khenshin.gradle" custom="true" type="gradleReference"/>
@@ -61,6 +61,17 @@
     </platform>
 
     <platform name="ios">
+        <preference name="TASK_API_URL" />
+        <preference name="DUMP_API_URL" />
+        <preference name="IOS_MAIN_BUTTON_STYLE" />
+        <preference name="ALLOW_CREDENTIALS_SAVING" />
+        <preference name="HIDE_WEB_ADDRESS" />
+        <preference name="IOS_USE_BAR_CENTERED_LOGO_IN_FORM" />
+        <preference name="IOS_PRINCIPAL_COLOR" />
+        <preference name="IOS_DARKER_PRINCIPAL_COLOR" />
+        <preference name="IOS_SECONDARY_COLOR" />
+        <preference name="IOS_NAVIGATION_BAR_TEXT_TINT" />
+
 
         <dependency id="cordova-plugin-cocoapod-support"/>
         <pods-config ios-min-version="9.0" use-frameworks="true"/>
@@ -78,6 +89,30 @@
                 <param name="ios-package" value="KhenshinPlugin"/>
                 <param name="onload" value="true"/>
             </feature>
+        </config-file>
+        <config-file target="*-Info.plist" parent="KhipuConfig">
+            <dict>
+                <key>TASK_API_URL</key>
+                <string>$TASK_API_URL</string>
+                <key>DUMP_API_URL</key>
+                <string>$DUMP_API_URL</string>
+                <key>IOS_MAIN_BUTTON_STYLE</key>
+                <string>$IOS_MAIN_BUTTON_STYLE</string>
+                <key>ALLOW_CREDENTIALS_SAVING</key>
+                <string>$ALLOW_CREDENTIALS_SAVING</string>
+                <key>HIDE_WEB_ADDRESS</key>
+                <string>$HIDE_WEB_ADDRESS</string>
+                <key>IOS_USE_BAR_CENTERED_LOGO_IN_FORM</key>
+                <string>$IOS_USE_BAR_CENTERED_LOGO_IN_FORM</string>
+                <key>IOS_PRINCIPAL_COLOR</key>
+                <string>$IOS_PRINCIPAL_COLOR</string>
+                <key>IOS_DARKER_PRINCIPAL_COLOR</key>
+                <string>$IOS_DARKER_PRINCIPAL_COLOR</string>
+                <key>IOS_SECONDARY_COLOR</key>
+                <string>$IOS_SECONDARY_COLOR</string>
+                <key>IOS_NAVIGATION_BAR_TEXT_TINT</key>
+                <string>$IOS_NAVIGATION_BAR_TEXT_TINT</string>
+            </dict>
         </config-file>
     </platform>
 

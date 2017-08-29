@@ -23,28 +23,52 @@
     return processHeaderObj;
 }
 
+-(UIColor *)getColor:(NSString*)col
+{
+    
+    SEL selColor = NSSelectorFromString(col);
+    UIColor *color = nil;
+    if ( [UIColor respondsToSelector:selColor] == YES) {
+        
+        color = [UIColor performSelector:selColor];
+    }
+    return color;
+}
+
 - (void)finishLaunching:(NSNotification *)notification
 {
     [[NSUserDefaults standardUserDefaults] setBool:NO
                                             forKey:@"KH_SHOW_HOW_IT_WORKS"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    NSDictionary *khipuConfig = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"KhipuConfig"];
+    
+    enum KHMainButton buttonStyle = KHMainButtonDefault;
+    NSString *style =khipuConfig[@"IOS_MAIN_BUTTON_STYLE"];
+    
+    if ([style isEqualToString:@"KHMainButtonFatOnForm"]) {
+        buttonStyle = KHMainButtonFatOnForm;
+    } else if ([style isEqualToString:@"KHMainButtonSkinnyOnForm"]) {
+        buttonStyle = KHMainButtonSkinnyOnForm;
+    }
+   
 
     [KhenshinInterface initWithNavigationBarCenteredLogo:[[UIImage alloc] init]
                                NavigationBarLeftSideLogo:[[UIImage alloc] init]
-                                         automatonAPIURL:[[NSURL alloc] initWithString:@"https://cmr.browser2app.com/api/automata/"]
-                                           cerebroAPIURL:[[NSURL alloc] initWithString:@"https://cmr.browser2app.com/api/automata/"]
+                                         automatonAPIURL:[[NSURL alloc] initWithString:khipuConfig[@"TASK_API_URL"]]
+                                           cerebroAPIURL:[[NSURL alloc] initWithString:khipuConfig[@"DUMP_API_URL"]]
                                            processHeader:(UIView<ProcessHeader>*)[self processHeader]
                                           processFailure:nil
                                           processSuccess:nil
                                           processWarning:nil
-                                  allowCredentialsSaving:YES
-                                         mainButtonStyle:KHMainButtonFatOnForm
-                         hideWebAddressInformationInForm:NO
-                                useBarCenteredLogoInForm:NO
-                                          principalColor:[UIColor lightGrayColor]
-                                    darkerPrincipalColor:[UIColor darkGrayColor]
-                                          secondaryColor:[UIColor redColor]
-                                   navigationBarTextTint:[UIColor whiteColor]
+                                  allowCredentialsSaving:[khipuConfig[@"ALLOW_CREDENTIALS_SAVING"] isEqualToString:@"true"]
+                                         mainButtonStyle:buttonStyle
+                         hideWebAddressInformationInForm:[khipuConfig[@"HIDE_WEB_ADDRESS"] isEqualToString:@"true"]
+                                useBarCenteredLogoInForm:[khipuConfig[@"IOS_USE_BAR_CENTERED_LOGO_IN_FORM"] isEqualToString:@"true"]
+                                          principalColor: [self getColor:khipuConfig[@"IOS_PRINCIPAL_COLOR"]]
+                                    darkerPrincipalColor:[self getColor:khipuConfig[@"IOS_DARKER_PRINCIPAL_COLOR"]]
+                                          secondaryColor:[self getColor:khipuConfig[@"IOS_SECONDARY_COLOR"]]
+                                   navigationBarTextTint:[self getColor:khipuConfig[@"IOS_NAVIGATION_BAR_TEXT_TINT"]]
                                                     font:[UIFont fontWithName:@"Avenir Next Condensed" size:15.0f]];
 }
 
