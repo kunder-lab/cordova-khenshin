@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SuccessPaymentViewController">
+            <connections>
+                <outlet property="view" destination="iN0-l3-epB" id="9Mr-Oi-8Jn"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Pf-Vz-56Q">
+                    <rect key="frame" x="164" y="318" width="46" height="30"/>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="finishClicked:" destination="-1" eventType="touchUpInside" id="Aav-ME-2FB"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qhq-za-Q1d">
+                    <rect key="frame" x="158" y="168" width="58" height="21"/>
+                    <attributedString key="attributedText">
+                        <fragment content="¡ÉXITO!">
+                            <attributes>
+                                <font key="NSFont" metaFont="system" size="17"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="qhq-za-Q1d" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="168" id="R6t-td-ztb"/>
+                <constraint firstItem="qhq-za-Q1d" firstAttribute="centerX" secondItem="7Pf-Vz-56Q" secondAttribute="centerX" id="Zmx-CJ-PM1"/>
+                <constraint firstItem="7Pf-Vz-56Q" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="mMC-eS-JoS"/>
+                <constraint firstItem="7Pf-Vz-56Q" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="z1W-Yf-Dec"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

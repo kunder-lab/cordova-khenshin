@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FailureViewController">
+            <connections>
+                <outlet property="message" destination="jNK-39-dRV" id="Far-we-1rn"/>
+                <outlet property="view" destination="iN0-l3-epB" id="l3G-nJ-Gq1"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E7p-hM-kjc">
+                    <rect key="frame" x="165" y="319" width="46" height="30"/>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="finishClicked:" destination="-1" eventType="touchUpInside" id="Xfe-Jf-h0V"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jNK-39-dRV">
+                    <rect key="frame" x="8" y="173" width="359" height="21"/>
+                    <attributedString key="attributedText">
+                        <fragment content="Failure">
+                            <attributes>
+                                <font key="NSFont" metaFont="system" size="17"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="jNK-39-dRV" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="QnP-za-cTU"/>
+                <constraint firstItem="E7p-hM-kjc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="UQV-d7-03v"/>
+                <constraint firstItem="E7p-hM-kjc" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Vgn-RE-ny5"/>
+                <constraint firstItem="jNK-39-dRV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="ZRG-Nt-5OA"/>
+                <constraint firstItem="jNK-39-dRV" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="173" id="tz7-D9-vOl"/>
+            </constraints>
+            <point key="canvasLocation" x="33.5" y="54.5"/>
+        </view>
+    </objects>
+</document>

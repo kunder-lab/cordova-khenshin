@@ -56,6 +56,15 @@
               android:value="$SKIP_EXIT_PAGE" />   
         </config-file>
 
+        <config-file target="res/values/strings.xml" parent="/*">
+            <string name="pay">Pay</string>
+            <string name="error">Error</string>
+            <string name="success">Éxito</string>
+            <string name="warning">Advertencia</string>
+            <string name="merchantImage">Logo cobrador</string>
+        </config-file>
+
+        <source-file src="src/android/res/layout" target-dir="res/" />
 
         <hook type="before_plugin_install" src="scripts/android/beforeInstall.js"/>
     </platform>
@@ -82,6 +91,20 @@
         <source-file src="src/ios/PaymentProcessHeader.h" target-dir="src"/>
         <source-file src="src/ios/PaymentProcessHeader.m" target-dir="src"/>
         <source-file src="src/ios/PaymentProcessHeader.xib" target-dir="src"/>
+
+        <source-file src="src/ios/SuccessPaymentViewController.h" target-dir="src"/>
+        <source-file src="src/ios/SuccessPaymentViewController.m" target-dir="src"/>
+        <source-file src="src/ios/Success.xib" target-dir="src"/>
+
+        <source-file src="src/ios/WarningViewController.h" target-dir="src"/>
+        <source-file src="src/ios/WarningViewController.m" target-dir="src"/>
+        <source-file src="src/ios/Warning.xib" target-dir="src"/>
+
+        <source-file src="src/ios/FailureViewController.h" target-dir="src"/>
+        <source-file src="src/ios/FailureViewController.m" target-dir="src"/>
+        <source-file src="src/ios/Failure.xib" target-dir="src"/>
+
+
         <source-file src="src/ios/KhenshinPlugin.h" target-dir="src"/>
         <source-file src="src/ios/KhenshinPlugin.m" target-dir="src"/>
         <config-file target="config.xml" parent="/*">

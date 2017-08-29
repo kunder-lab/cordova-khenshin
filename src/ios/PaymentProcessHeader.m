@@ -21,8 +21,10 @@
              merchantImageURL:(NSString*) merchantImageURL
                 paymentMethod:(NSString *) paymentMethod {
     
-    [[self amount] setText:[NSString stringWithFormat:@"%@",amount]];
-    [[self subject] setText:[NSString stringWithFormat:@"%@",subject]];
+    [[self subject] setText:[NSString stringWithFormat:@":%@",subject]];
+    [[self amount] setText:[NSString stringWithFormat:@":%@",amount]];
+    [[self merchantName] setText:[NSString stringWithFormat:@":%@",merchantName]];
+    [[self paymentMethod] setText:[NSString stringWithFormat:@":%@",paymentMethod]];
     [self downloadMerchantImageWithMerchantImageURL:merchantImageURL];
 }
 
@@ -34,7 +36,7 @@
                                                         timeoutInterval:90];
     
     [self.merchantImage setImageWithURLRequest:merchantPictureRequest
-                              placeholderImage:[UIImage imageNamed:@"Bank"]
+                              placeholderImage:[UIImage imageNamed:@"Merchant Stand In"]
                                        success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
 
                                            [self.merchantImage setImage:image];
