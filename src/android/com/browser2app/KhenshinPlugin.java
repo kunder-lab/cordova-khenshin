@@ -12,6 +12,8 @@ import com.browser2app.khenshin.domain.ApiCallBack;
 import com.browser2app.khenshin.ISO8601;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+
 import java.util.Map;
 import java.util.HashMap;
 import com.browser2app.khenshin.LogWrapper;
@@ -53,6 +55,7 @@ public class KhenshinPlugin extends CordovaPlugin {
 	private static final int START_PAYMENT_REQUEST_CODE = 101;
 
     private CallbackContext pendingCallback;
+    private String paymentId;
 
     @Override
     public void pluginInitialize() {
@@ -103,13 +106,14 @@ public class KhenshinPlugin extends CordovaPlugin {
 				String[] kv = cordovaArgs.getString(i).split(":");
 				params.put(kv[0], kv[1]);
 			}
-			createPayment(params);
+			createPayment(params, callbackContext);
+			this.pendingCallback = callbackContext;
 			return true;
 		}
 		return false;
 	}
 
-	void createPayment(Map<String, String> map) {
+	void createPayment(Map<String, String> map, final CallbackContext callbackContext) {
 		ripleyApi.paymentCreate(
 				map.get("account_number")
 				, map.get("personal_identifier")
@@ -127,13 +131,14 @@ public class KhenshinPlugin extends CordovaPlugin {
 
 			@Override
 			public void onFailure(Call<PaymentCreateResponse> call, Throwable t){
-
+                callbackContext.error(call.toString());
 			}
 		});
 	}
 
 
 	void startByPaymentId(String paymentId) {
+        this.paymentId = paymentId;
 		Intent intent = ((KhenshinApplication)cordova.getActivity().getApplicationContext()).getKhenshin().getStartTaskIntent();
 		intent.putExtra(KhenshinConstants.EXTRA_PAYMENT_ID, paymentId);
 		intent.putExtra(KhenshinConstants.EXTRA_FORCE_UPDATE_PAYMENT, false);
@@ -159,18 +164,12 @@ public class KhenshinPlugin extends CordovaPlugin {
 	}
 	@Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-	 	if (requestCode == START_PAYMENT_REQUEST_CODE) {
-	 		String exitUrl = data.getStringExtra(KhenshinConstants.EXTRA_INTENT_URL);
-	 		if (resultCode == RESULT_OK) {
-				this.pendingCallback.success();
-	 		} else if (resultCode == RESULT_CANCELED) {
-                this.pendingCallback.error("RESULT_CANCELED");
-			} else {
-                this.pendingCallback.error(resultCode);
-            }
-		} else {
+        if (resultCode == RESULT_OK) {
+            this.pendingCallback.success(this.paymentId);
+        } else if (resultCode == RESULT_CANCELED) {
+            this.pendingCallback.error("RESULT_CANCELED");
+        } else {
             this.pendingCallback.error(resultCode);
         }
-
 	}
 }

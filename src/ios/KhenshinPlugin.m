@@ -69,7 +69,7 @@
                                     darkerPrincipalColor:[self getColor:khipuConfig[@"IOS_DARKER_PRINCIPAL_COLOR"]]
                                           secondaryColor:[self getColor:khipuConfig[@"IOS_SECONDARY_COLOR"]]
                                    navigationBarTextTint:[self getColor:khipuConfig[@"IOS_NAVIGATION_BAR_TEXT_TINT"]]
-                                                    font:nil;
+                                                    font:nil];
 }
 
 - (void)startByPaymentId:(CDVInvokedUrlCommand*)command
@@ -129,32 +129,35 @@
 
 
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[[NSURL alloc] initWithString:@"https://khipu.com/ripley-fitting/api/"]];
-	manager.responseSerializer = [AFJSONResponseSerializer serializer];
+  manager.responseSerializer = [AFJSONResponseSerializer serializer];
 
-	[manager POST:@"payment/create"
-	  parameters:parameters
-		progress:nil
-		 success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-			 NSLog(@"responseObject==%@",responseObject);
-
-			 [KhenshinInterface startEngineWithPaymentExternalId:[responseObject valueForKeyPath:@"paymentId"]
-												  userIdentifier:@""
-											   isExternalPayment:true
-														 success:^(NSURL *returnURL) {
-															 CDVPluginResult* pluginResult = nil;
-															 pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-															 [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-														 }
-														 failure:^(NSURL *returnURL) {
-															 CDVPluginResult* pluginResult = nil;
-															 pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-															 [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-														 }
-														animated:false];
-		 }
-		 failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-			 NSLog(@"error: %@", error);
-		 }];
+  [manager POST:@"payment/create"
+    parameters:parameters
+    progress:nil
+     success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+       NSLog(@"responseObject==%@",responseObject);
+             NSString* paymentId = [responseObject valueForKeyPath:@"paymentId"];
+       [KhenshinInterface startEngineWithPaymentExternalId:paymentId
+                          userIdentifier:@""
+                         isExternalPayment:true
+                             success:^(NSURL *returnURL) {
+                               CDVPluginResult* pluginResult = nil;
+                               pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:paymentId];
+                               [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+                             }
+                             failure:^(NSURL *returnURL) {
+                               CDVPluginResult* pluginResult = nil;
+                               pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+                               [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+                             }
+                            animated:false];
+     }
+     failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+       NSLog(@"error: %@", error);
+             CDVPluginResult* pluginResult = nil;
+             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+     }];
 
 
 
